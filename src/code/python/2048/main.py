@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import sys, time, math, random, os, argparse
 from game import Game
 from ai import AI
-from test import test, test_ec
+
 
 random.seed(0)
 
