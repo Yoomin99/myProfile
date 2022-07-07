@@ -51,8 +51,6 @@ class AI:
 # - level 2: player
 # - level 3: terminal with payoff 
 
-
-
     # TODO: build a game tree from the current node up to the given depth
     def build_tree(self, node = None, depth = 0):
 
@@ -93,16 +91,6 @@ class AI:
                     newNode = Node(self.simulator.current_state(), -1)
                     node.children.append((i,newNode))
 
-            
-
-                
-
-
-
-        
-
-    
-        
     # TODO: expectimax calculation.
     # Return a (best direction, expectimax value) tuple if node is a MAX_PLAYER
     # Return a (None, expectimax value) tuple if node is a CHANCE_PLAYER
