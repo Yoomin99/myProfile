@@ -1,3 +1,4 @@
+
 from __future__ import absolute_import, division, print_function
 import copy, random
 from game import Game
@@ -10,29 +11,17 @@ class Node:
     # Recommended: do not modify this __init__ function
     def __init__(self, state, player_type):
         self.state = (copy.deepcopy(state[0]), state[1])
-<<<<<<< HEAD
-
         # to store a list of (direction, node) tuples
         self.children = []
-
-=======
-        # to store a list of (direction, node) tuples
-        self.children = []
->>>>>>> parent of 296198b (Update)
         self.player_type = player_type
 
     # returns whether this is a terminal state (i.e., no children)
     def is_terminal(self):
-<<<<<<< HEAD
-        #TODO: complete this
-        pass
-=======
         if self.player_type == -1:
             #print("is termianl: " , self.state[0])
             return True
 
         return False
->>>>>>> parent of 296198b (Update)
 
 # AI agent. Determine the next move.
 class AI:
@@ -41,44 +30,13 @@ class AI:
         self.root = Node(root_state, MAX_PLAYER)
         self.search_depth = search_depth
         self.simulator = Game(*root_state)
-<<<<<<< HEAD
-=======
         
     
     
->>>>>>> parent of 296198b (Update)
 
     # (Hint) Useful functions: 
     # self.simulator.current_state, self.simulator.set_state, self.simulator.move
 
-<<<<<<< HEAD
-    # TODO: build a game tree from the current node up to the given depth
-    def build_tree(self, node = None, depth = 0):
-        print(self.simulator.current_state)
-        print(self.simulator.set_state)
-        print(self.simulator.move)
-
-
-        pass
-
-    # TODO: expectimax calculation.
-    # Return a (best direction, expectimax value) tuple if node is a MAX_PLAYER
-    # Return a (None, expectimax value) tuple if node is a CHANCE_PLAYER
-    def expectimax(self, node = None):
-        # TODO: delete this random choice but make sure the return type of the function is the same
-        return random.randint(0, 3), 0
-
-    # Return decision at the root
-    def compute_decision(self):
-        self.build_tree(self.root, self.search_depth)
-        direction, _ = self.expectimax(self.root)
-        return direction
-
-    # TODO (optional): implement method for extra credits
-    def compute_decision_ec(self):
-        return random.randint(0, 3)
-
-=======
     # how to use function? 
     # current_matrix, current_score = self.simulator.current_state()
     # self.simulator.set_state
@@ -93,8 +51,6 @@ class AI:
 # - level 1: computer 
 # - level 2: player
 # - level 3: terminal with payoff 
-
-
 
     # TODO: build a game tree from the current node up to the given depth
     def build_tree(self, node = None, depth = 0):
@@ -136,16 +92,6 @@ class AI:
                     newNode = Node(self.simulator.current_state(), -1)
                     node.children.append((i,newNode))
 
-            
-
-                
-
-
-
-        
-
-    
-        
     # TODO: expectimax calculation.
     # Return a (best direction, expectimax value) tuple if node is a MAX_PLAYER
     # Return a (None, expectimax value) tuple if node is a CHANCE_PLAYER
@@ -198,4 +144,3 @@ class AI:
         direction, _ = self.expectimax(self.root)
         #print("Direction is " , direction )
         return direction
->>>>>>> parent of 296198b (Update)
