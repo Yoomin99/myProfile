@@ -19,7 +19,8 @@ class Node:
 
 # NOTE: deterministic_test() requires BUDGET = 1000
 # You can try higher or lower values to see how the AI's strength changes
-BUDGET = 1000
+BUDGET = 10000
+
 
 class AI:
     # NOTE: modifying this block is not recommended because it affects the random number sequences
@@ -35,13 +36,6 @@ class AI:
         iters = 0
         action_win_rates = {} #store the table of actions and their ucb values
 
-        # TODO: Delete the following block ->
-        self.simulator.reset(*self.root.state)
-        for action in self.simulator.get_actions():
-            action_win_rates[action] = 0
-        return random.choice(self.simulator.get_actions()), action_win_rates
-        # <- Delete this block
-
         # TODO: Implement the MCTS Loop
         while(iters < BUDGET):
             if ((iters + 1) % 100 == 0):
@@ -50,7 +44,10 @@ class AI:
                 print("\riters/budget: {}/{}".format(iters + 1, BUDGET), end="")
 
             # TODO: select a node, rollout, and backpropagate
-
+            s = self.select(self.root)
+            winner = self.rollout(s)
+            self.backpropagate(s, winner)
+            
             iters += 1
         print()
 
@@ -65,59 +62,86 @@ class AI:
         # TODO: select a child node
         # HINT: you can use 'is_terminal' field in the Node class to check if node is terminal node
         # NOTE: deterministic_test() requires using c=1 for best_child()
+        
+        self.simulator.reset(*node.state)
+        while not node.is_terminal:
+            if len(node.untried_actions) > 0:
+                return self.expand(node)
+            else:
+                #best_child_node, best_action, action_ucb_table
+                node = self.best_child(node , 1)[0]
+                self.simulator.reset(*node.state)
 
         return node
 
     def expand(self, node):
 
         # TODO: add a new child node from an untried action and return this new node
-
+        
         child_node = None #choose a child node to grow the search tree
 
         # NOTE: passing the deterministic_test() requires popping an action like this
         action = node.untried_actions.pop(0)
-
-        # NOTE: Make sure to add the new node to node.children
-        # NOTE: You may find the following methods useful:
-        #   self.simulator.state()
-        #   self.simulator.get_actions()
+        (r,c) = action
+        self.simulator.place(r,c)
+        child_node = Node(self.simulator.state(), self.simulator.get_actions() , node)
+        node.children.append( (action , child_node) )
 
         return child_node
 
     def best_child(self, node, c=1): 
 
         # TODO: determine the best child and action by applying the UCB formula
-
         best_child_node = None # to store the child node with best UCB
         best_action = None # to store the action that leads to the best child
         action_ucb_table = {} # to store the UCB values of each child node (for testing)
-
+        Ucb =  -1
         # NOTE: deterministic_test() requires iterating in this order
+        #Child is (action , child_node)
+
+        #Find the highest UCB value in current node. 
         for child in node.children:
             # NOTE: deterministic_test() requires, in the case of a tie, choosing the FIRST action with 
-            # the maximum upper confidence bound 
-            pass
+            # the maximum upper confidence bound
+            #   def eval_UCB(self, s, s_prime , c):
+            UcbVal = self.eval_UCB(node , child[1] , c)     
 
+            if (UcbVal > Ucb):
+                Ucb = UcbVal 
+                best_child_node = child[1]
+                best_action  = child[0]
+            #store the UCB values of each child node (for testing)
+            action_ucb_table[child[0]] = UcbVal
         return best_child_node, best_action, action_ucb_table
 
     def backpropagate(self, node, result):
-
         while (node is not None):
             # TODO: backpropagate the information about winner
             # IMPORTANT: each node should store the number of wins for the player of its **parent** node
-            break
+            node.num_visits += 1
+            # if node.parent == None:
+            #     #print(node.state[1] == self.root.state[1]) => always true
+            #     break
+           
+            #If the current state is WHITE, meaning that its parent is BLACK
+            #If the current state is BLACK, meaning that its parent is WHITE
+            parent_player = WHITE if node.state[0] == BLACK else BLACK
+            node.num_wins = node.num_wins + result[parent_player]
+            node = node.parent
+        
 
+            
     def rollout(self, node):
 
         # TODO: rollout (called DefaultPolicy in the slides)
 
-        # HINT: you may find the following methods useful:
-        #   self.simulator.reset(*node.state)
-        #   self.simulator.game_over
-        #   self.simulator.rand_move()
-        #   self.simulator.place(r, c)
-        # NOTE: deterministic_test() requires that you select a random move using self.simulator.rand_move()
+        self.simulator.reset(*node.state)
+        while not self.simulator.game_over:
+            (row , col) =  self.simulator.rand_move()
+            self.simulator.place(row,col)
 
+
+        # Reutn winner
         # Determine reward indicator from result of rollout
         reward = {}
         if self.simulator.winner == BLACK:
@@ -127,3 +151,8 @@ class AI:
             reward[BLACK] = 0
             reward[WHITE] = 1
         return reward
+
+
+    #child as (action , child_node)
+    def eval_UCB(self, s, s_prime , c):
+        return s_prime.num_wins/s_prime.num_visits + c * sqrt(2*log(s.num_visits)/s_prime.num_visits)

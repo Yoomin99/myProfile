@@ -139,18 +139,12 @@ parser.add_argument('--load', '-l', dest='load_num', type = int, default=-1, hel
 args = parser.parse_args()
 
 if __name__ == '__main__':
-    if args.t:
-        test()
-    else:
+    
         import pygame
         from pygame.locals import *
 
         game = GridWorld()
 
-        with open("tests") as file:
-            lines = file.readlines()
-            if args.load_num in range(len(lines)):
-                print("loading test case {}...".format(args.load_num))
-                game.grid.load(" ".join(lines[args.load_num].split()[4:]))
+        
 
         game.loop()
