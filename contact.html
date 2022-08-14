@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<script src="src/code/JavaScript/contact.js"> </script>
+  <head>
+    <link rel = "stylesheet" type = "text/css" href = "/src/code/CSS/contact.css">
+    <meta charset="UTF-8">
+    <meta name="description" content="Yoomin Website">
+    <meta name="keywords" content="Yoomin Website">
+    <meta name="author" content="Yoomin Oh">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Mouse+Memoirs&family=Uchen&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    
+  </head>
+
+
+  <body>
+    <div class = "wrapper">
+        <header> Contact me </header>
+        <form action="https://api.web3forms.com/submit" method="POST" id="form">
+            <input type="hidden" name="access_key" value="2d91d43f-a800-49d2-9fa9-59dbd0c96f46">
+            <div class="dbl-field">
+                <div class="field">
+                    <input type="text" name="name" placeholder="Enter your name" required >
+                    <i class="fas fa-user"></i>
+                </div>
+
+                <div class="field">
+                    <input type="email" name="email" placeholder="Enter your email">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+
+            <div class = "dbl-field">
+                <div class="field">
+                    <input type="text" placeholder="Enter your phone" name="Phone Number" required >
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="field">
+                    <input type="text" name="from_name" placeholder="Enter your website">
+                    <i class="fas fa-globe"></i>
+                </div>
+            </div>
+
+            <div class="message">
+                <textarea name="message" placeholder="Write your message" required > </textarea>
+                <i class="material-icons">message</i>
+            </div>
+            
+            <div class="button-area">
+                <button type="submit">Send a message</button>
+                <p class="text-base text-center text-gray-400" id="result"></p>
+                <span>Sending your message...</span>
+            </div>
+
+        </form>
+    </div>
+    
+
+
+
+
+  </body>

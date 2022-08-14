@@ -13,5 +13,5 @@ function init() {
   }
 
   function HireMe (event){
-    window.location.href = 'website.html';
+    window.location.href = 'contact.html';
   }

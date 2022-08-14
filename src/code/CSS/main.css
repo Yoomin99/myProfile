@@ -112,4 +112,16 @@ html {
     .container img{
         display:none;
     }  
+
+    .container nav .buttons button{
+        margin-left: 5%;
+        margin-right: 5%;
+        padding: 3% 3%;
+        background-color:white;
+        color: black;
+        border:none;
+        border-radius:5%;
+        box-shadow: 0px 0px 2px 2px rgb(0,0,0);
+        font-family: 'Uchen', serif;
+    }
 }
