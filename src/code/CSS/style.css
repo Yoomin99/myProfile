@@ -1,12 +1,22 @@
+header{
+    background: pink;
+    padding: 2em 0;
+}
+
 body {
+    margin: 0 1em;
     background: linear-gradient(to bottom, rgba(215, 218, 245,1), rgba(215, 218, 245,0.4));
     background-size: cover;
     font-size: 100%;
     /*text-transform: capitalize;*/
     text-align: justify;
     font-family: 'Uchen', serif;
-
-
+}
+.seeking{
+    font-weight: 400;
+    color: black;
+    font-size: 1.3rem;
+    margin: 1rem;
 }
 #sub-title{
     color: rgba(22, 23, 23);
@@ -14,22 +24,89 @@ body {
     font-family: 'Mouse Memoirs' , serif;
 }
 h1{
+    margin: 0;
+    font-size: 2rem;
     text-align: center;
 }
 
 
 #contact-phone{
+    font-size: 1rem;
+    font-weight: 600;
     color:green
 }
 
-ul{
-    color:steelblue
-}
 
-img[src *= "src/"] {
-    border: 5px solid black;
-}
 
 .link{
     text-decoration: underline;
 }
+
+
+
+nav ul{
+    border: 1px solid magenta;
+    /* list-style: none; */
+    padding: 0 1em;
+}
+
+nav li{
+    border: 2px dotted orange;
+}
+
+.container img{
+    border: 5px solid black;
+    width:50%;
+    height: 40rem;
+    margin: 0 auto;
+}
+.container{
+    width: 90%;
+    max-width: 100%;
+    height:auto;
+    margin:0 auto;
+    display: flex;
+}
+
+
+.container nav{
+    /* To make each element equal size */
+    flex: 1 1 0;
+    width: 0;
+}
+
+@media (max-width: 1400px){
+    .container{
+        display: block;
+        margin:0 auto;
+        width: 90%;
+        max-width: 9000px;
+        text-align: center;
+        justify-content: left;
+    }
+    .container nav{
+        width: 100%;
+        max-width: 9000px;
+        flex-direction: column;
+        flex: 1 1 0;
+    }
+    .container img{
+        max-width: 50%;
+        width:auto;
+        height: auto;
+        margin: 0 auto;
+    }
+}
+
+[class|="contact"]{
+    font-size: 1.5em;
+}
+
+.interest{
+    font-size: 1.75rem;
+}
+
+
+
+
+
