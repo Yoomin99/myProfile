@@ -1,51 +1,41 @@
 function init() {
-    const form = document.getElementById("form");
-    const result = document.getElementById("result");
-    
-    form.addEventListener("submit", function (e) {
-        const formData = new FormData(form);
-        console.log(formData)
-        e.preventDefault();
-        var object = {};
-        formData.forEach((value, key) => {
-          object[key] = value;
-        });
-        console.log(object);
-        var json = JSON.stringify(object);
+    const form = document.querySelector("form");
+    statusTxt = form.querySelector(".button-area span");
 
+    form.onsubmit = (e)=>{
+      e.preventDefault();
+      statusTxt.style.color = "#0D6EFD";
+      statusTxt.style.display = "block";
+      statusTxt.innerText = "Sending your message...";
+      let xhr = new XMLHttpRequest();
+      xhr.open("POST", "message.php" , true);
+
+      xhr.onload = () =>{
         
-        fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json"
-          },
-          body: json
-        })
-          .then(async (response) => {
-            let json = await response.json();
-            if (response.status == 200) {
-              result.innerHTML = json.message;
-              result.classList.remove("text-gray-500");
-              result.classList.add("text-green-500");
-            } else {
-              console.log(response);
-              result.innerHTML = json.message;
-              result.classList.remove("text-gray-500");
-              result.classList.add("text-red-500");
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-            result.innerHTML = "Something went wrong!";
-          })
-          .then(function () {
+        if(xhr.readyState == 4 && xhr.status == 200){
+          let response = xhr.response;
+          console.log(response);
+          statusTxt.innerText = response; 
+
+          if(response.indexOf("Email and message field are required")!= -1 || response.indexOf("Failed to send an email")!= -1 || response.indexOf("Wrong email address format")!= -1 ){
+            statusTxt.style.color = "red";
+          } else{
             form.reset();
-            setTimeout(() => {
-              result.style.display = "none";
-            }, 5000);
-          });
-      });
+            setTimeout(()=>{
+              statusTxt.style.display = "none";
+            })
+          }
+        }
+      }
+
+      let formData = new FormData(form);
+      xhr.send(formData);
+
+    }
+
+    
+    
+    
     
 }
 
