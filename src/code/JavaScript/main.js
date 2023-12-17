@@ -101,4 +101,18 @@ function CONTACT() {
 }
 
 
+//When click the download button
+
+const download = (p, f) => {
+  const anchor = document.createElement('a');
+  anchor.href = p;
+  anchor.download = f;
+  document.body.appendChild(anchor);
+  anchor.click();
+  document.body.removeChild(anchor);
+};
+
+
+
+
 window.addEventListener('DOMContentLoaded', init);

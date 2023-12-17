@@ -282,12 +282,15 @@ ul
 {
     margin-right: 15px;
 }
+
+
 /* home */
 .home
 {
     min-height: 100vh;
     display:flex;
     color: var(--text-black-900);
+    
 }
 
 .home .home-info
@@ -295,14 +298,16 @@ ul
     flex: 0 0 60%;
     max-width: 60%;
     
+    
 }
 
 .home .home-img
 {
-    flex: 0 0 40%;
+    flex: 0,0, 40%;
     max-width: 40%;
     text-align: center;
     position:relative;
+    
 }
 h3.hello
 {
@@ -338,7 +343,7 @@ h3.my-profession
     width:80px;
     border-bottom: 10px solid var(--text-black-700);
     border-right: 10px solid var(--text-black-700);
-    right:20px;
+    right:-10px;
     bottom: -40px;
 }
 
@@ -521,8 +526,8 @@ h3.my-profession
 {
     background-color: var(--bg-black-100);
     padding: 30px 15px;
-    border: 1px solid var(--bg-black-50);
-    border-radius: 10px;
+    border: 5px solid var(--bg-black-50);
+    border-radius: 20px;
     width: 100%;
     position:relative;
 }
@@ -531,8 +536,9 @@ h3.my-profession
 .about .about-content .timeline .timeline-item
 {
     position: relative;
-    padding-left: 37px;
+    padding-left: 40px;
     padding-bottom: 50px;
+
 }
 
 
@@ -587,7 +593,7 @@ h3.my-profession
 
 .about .about-content .timeline .timeline-text
 {
-    line-height: 25px;
+    line-height: 30px;
     font-size: 16px;
     text-align: justify;
     color:var(--text-black-700);
